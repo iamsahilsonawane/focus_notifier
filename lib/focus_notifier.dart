@@ -3,6 +3,7 @@ library focus_notifier;
 export './focus_notification.dart';
 
 import 'package:flutter/material.dart';
+import 'focus_notification.dart';
 
 typedef FocusNotifierBuilder = Widget Function(
     BuildContext context, FocusNode focusNode);

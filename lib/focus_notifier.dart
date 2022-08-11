@@ -12,11 +12,11 @@ typedef FocusNotifierBuilder = Widget Function(
 ///
 ///Assign the focus node to the child focus widget
 ///
-///Use [key] to add custom key for referenceing it in the listener. 
+///Use [key] to add custom key for referenceing it in the listener.
 class FocusNotifier extends StatefulWidget {
-  const FocusNotifier({Key? key, required this.builder})
-      : super(key: key);
+  const FocusNotifier({Key? key, required this.builder}) : super(key: key);
 
+  final FocusNode? customFocusNode;
   final FocusNotifierBuilder builder;
 
   @override
@@ -24,10 +24,13 @@ class FocusNotifier extends StatefulWidget {
 }
 
 class _FocusNotifierState extends State<FocusNotifier> {
-  final node = FocusNode();
+  FocusNode node = FocusNode();
 
   @override
   initState() {
+    if (widget.customFocusNode != null) {
+      node = widget.customFocusNode;
+    }
     node.addListener(() {
       if (node.hasFocus) {
         final notification = FocusNotification(widget.key ?? UniqueKey());
@@ -39,7 +42,7 @@ class _FocusNotifierState extends State<FocusNotifier> {
 
   @override
   dispose() {
-    node.dispose();
+    if (widget.customFocusNode == null) node.dispose();
     super.dispose();
   }
 

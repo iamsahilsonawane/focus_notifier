@@ -15,7 +15,7 @@ typedef FocusNotifierBuilder = Widget Function(
 ///
 ///If [FocusNotifier.customFocusNode] is used the custom focus node provided will not be disposed.
 class FocusNotifier extends StatefulWidget {
-  const FocusNotifier({Key? key, required this.builder}) : focusNode = null, super(key: key);
+  const FocusNotifier({Key? key, required this.builder}) : super(key: key);
   const FocusNotifier.customFocusNode({Key? key, required this.builder, required this.focusNode}) : super(key: key);
 
   final FocusNotifierBuilder builder;
@@ -31,7 +31,7 @@ class _FocusNotifierState extends State<FocusNotifier> {
   @override
   initState() {
     if (widget.focusNode != null) {
-      node = widget.focusNode;
+      node = widget.focusNode!;
     }
     node.addListener(() {
       if (node.hasFocus) {
